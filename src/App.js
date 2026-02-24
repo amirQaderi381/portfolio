@@ -9,6 +9,9 @@ import { useEffect } from "react";
 // Note : create custom theme
 const theme = createTheme({
   direction: "rtl",
+  typography : {
+    fontFamily : "vazir , roboto"
+  }
 });
 
 // Note : create RTL cache
