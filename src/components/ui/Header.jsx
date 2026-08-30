@@ -26,12 +26,11 @@ const Header = () => {
   return (
     <>
       <ElevationScroll>
-        <AppBar>
-          <Toolbar>
+        <AppBar sx={'position:sticky'}>
+          <Toolbar disableGutters>
             <Typography variant="h6">
               وبسابت شخصی
             </Typography>
-            <Button variant="contained" color="secondary">click</Button>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
