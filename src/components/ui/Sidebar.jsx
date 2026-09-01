@@ -7,9 +7,16 @@ const Sidebar = () => {
       <Box sx={{ justifyContent: "center", textAlign: "center", mt: 2 }}>
         <Avatar
           alt="Amir Qaderi"
-          sx={{ height: 150, width: 150, margin: "0 auto" }}
+          sx={{
+            display: { xs: "none", md: "block" },
+            height: 150,
+            width: 150,
+            margin: "0 auto",
+          }}
           src={require("../../assets/images.jpeg")}
-        />
+        >
+          AQ
+        </Avatar>
         <Typography variant="h6" color="whitesmoke">
           امیر قادری
         </Typography>
