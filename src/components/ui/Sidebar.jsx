@@ -1,4 +1,23 @@
-import { Avatar, Box, Divider, Grid, Typography } from "@mui/material";
+import {
+  ConnectWithoutContact,
+  ConnectWithoutContactRounded,
+  CopyrightRounded,
+  FaceRounded,
+  FavoriteRounded,
+  HomeRounded,
+  MessageRounded,
+  TerminalRounded,
+  TextSnippetRounded,
+} from "@mui/icons-material";
+import {
+  Avatar,
+  Box,
+  Divider,
+  Grid,
+  Tab,
+  Tabs,
+  Typography,
+} from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 const Sidebar = () => {
@@ -24,6 +43,57 @@ const Sidebar = () => {
           مدرس و برنامه نویس فول استک
         </Typography>
         <Divider variant="middle" color={grey[900]} sx={{ mt: 2 }} />
+
+        <Tabs
+          orientation="vertical"
+          variant="scrollable"
+          scrollButtons="auto"
+          allowScrollButtonsMobile
+        >
+          <Tab label="صفحه اصلی" icon={<HomeRounded />} iconPosition="start" />
+          <Tab label="درباره من" icon={<FaceRounded />} iconPosition="start" />
+          <Tab label="رزومه من" icon={<FaceRounded />} iconPosition="start" />
+          <Tab
+            label="نمونه کارها"
+            icon={<TextSnippetRounded />}
+            iconPosition="start"
+          />
+          <Tab
+            label="ظرات دانشجویان"
+            icon={<TerminalRounded />}
+            iconPosition="start"
+          />
+          <Tab
+            label="ارتباط با من"
+            icon={<MessageRounded />}
+            iconPosition="start"
+          />
+        </Tabs>
+
+        <Divider variant="middle" color={grey[900]} sx={{ mt: 2 }} />
+
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 100,
+          }}
+        >
+          <Typography variant="subtitle2" color="whitesmoke">
+            طراحی شده با{" "}
+            <FavoriteRounded
+              sx={{ verticalAlign: "middle", color: "tomato", height: 20 }}
+            />
+          </Typography>
+
+          <Typography variant="caption" color="whitesmoke" sx={{ mt: 2 }}>
+            کپی رایت 1405{" "}
+            <CopyrightRounded sx={{ verticalAlign: "middle", height: 16 }} />
+          </Typography>
+        </Box>
       </Box>
     </Grid>
   );
