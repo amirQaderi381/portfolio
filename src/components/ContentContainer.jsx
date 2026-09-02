@@ -6,7 +6,6 @@ const ContentContainer = ({children}) => {
       size={{ xs: 12, md: 9, lg: 10 }}
       sx={{ backgroundColor: "secondary.main" }}
     >
-      <Typography sx={{ textAlign: "center" }}>main content</Typography>
       {children}
     </Grid>
   );
