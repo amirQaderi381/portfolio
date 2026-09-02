@@ -5,8 +5,7 @@ import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import { useEffect } from "react";
 import { theme } from "./../ui/theme";
-import { Grid, Typography } from "@mui/material";
-import Sidebar from "../ui/Sidebar";
+import { Grid } from "@mui/material";
 
 const MainLayout = ({ children, title }) => {
   // Note : create RTL cache
@@ -24,14 +23,7 @@ const MainLayout = ({ children, title }) => {
       <ThemeProvider theme={theme}>
         {/* Grid System */}
         <Grid container sx={{ height: "100vh" }}>
-          <Sidebar/>
-          <Grid
-            size={{ xs: 12, md: 9, lg: 10 }}
-            sx={{ backgroundColor: "secondary.main" }}
-          >
-            <Typography sx={{ textAlign: "center" }}>main content</Typography>
-            {children}
-          </Grid>
+          {children}
         </Grid>
       </ThemeProvider>
     </CacheProvider>

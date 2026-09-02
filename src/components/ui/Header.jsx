@@ -1,7 +1,6 @@
 import { cloneElement } from "react";
 import {
   AppBar,
-  Button,
   Toolbar,
   Typography,
   useScrollTrigger,

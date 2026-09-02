@@ -1,5 +1,4 @@
 import {
-  ConnectWithoutContact,
   ConnectWithoutContactRounded,
   CopyrightRounded,
   FaceRounded,
@@ -20,7 +19,13 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-const Sidebar = () => {
+const Sidebar = ({ value, handleChange }) => {
+  const tabProps = (index) => {
+    return {
+      id: `sidebar-tab-${index}`,
+      "aria-controls": `tabpanel-${index}`,
+    };
+  };
   return (
     <Grid size={{ xs: 0, md: 3, lg: 2 }} sx={{ backgroundColor: grey[900] }}>
       <Box sx={{ justifyContent: "center", textAlign: "center", mt: 2 }}>
@@ -32,7 +37,7 @@ const Sidebar = () => {
             width: 150,
             margin: "0 auto",
           }}
-          src={require("../../assets/images.jpeg")}
+          src={require("../assets/images.jpeg")}
         >
           AQ
         </Avatar>
@@ -49,24 +54,44 @@ const Sidebar = () => {
           variant="scrollable"
           scrollButtons="auto"
           allowScrollButtonsMobile
+          value={value}
+          onChange={handleChange}
         >
-          <Tab label="صفحه اصلی" icon={<HomeRounded />} iconPosition="start" />
-          <Tab label="درباره من" icon={<FaceRounded />} iconPosition="start" />
-          <Tab label="رزومه من" icon={<FaceRounded />} iconPosition="start" />
           <Tab
-            label="نمونه کارها"
+            label="صفحه اصلی"
+            icon={<HomeRounded />}
+            iconPosition="start"
+            {...tabProps(0)}
+          />
+          <Tab
+            label="درباره من"
+            icon={<FaceRounded />}
+            iconPosition="start"
+            {...tabProps(1)}
+          />
+          <Tab
+            label="رزومه من"
             icon={<TextSnippetRounded />}
             iconPosition="start"
+            {...tabProps(2)}
+          />
+          <Tab
+            label="نمونه کارها"
+            icon={<TerminalRounded />}
+            iconPosition="start"
+            {...tabProps(3)}
           />
           <Tab
             label="ظرات دانشجویان"
-            icon={<TerminalRounded />}
+            icon={<MessageRounded />}
             iconPosition="start"
+            {...tabProps(4)}
           />
           <Tab
             label="ارتباط با من"
-            icon={<MessageRounded />}
+            icon={<ConnectWithoutContactRounded />}
             iconPosition="start"
+            {...tabProps(5)}
           />
         </Tabs>
 
