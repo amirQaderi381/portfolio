@@ -9,6 +9,7 @@ const TabPanel = (props) => {
       tabIndex={0}
       id={`tabpanel-${index}`}
       aria-labelledby={`sidebar-tab-${index}`}
+      {...others}
     >
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>

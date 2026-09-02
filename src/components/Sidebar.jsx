@@ -82,7 +82,7 @@ const Sidebar = ({ value, handleChange }) => {
             {...tabProps(3)}
           />
           <Tab
-            label="ظرات دانشجویان"
+            label="نظرات دانشجویان"
             icon={<MessageRounded />}
             iconPosition="start"
             {...tabProps(4)}
