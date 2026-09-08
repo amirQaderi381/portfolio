@@ -5,10 +5,7 @@ import DrawerContent from "./ui/DrawerContent";
 import { MenuRounded } from "@mui/icons-material";
 
 const Sidebar = ({ value, handleChange }) => {
-  const [openDrawer, SetOpenDrawer] = useState(false);
-  const toggleDrawer = () => {
-    SetOpenDrawer(!openDrawer);
-  };
+  const [openDrawer, setDrawerOpen] = useState(false);
 
   return (
     <Grid size={{ xs: 0, md: 3, lg: 2 }} sx={{ backgroundColor: grey[900] }}>
@@ -16,7 +13,7 @@ const Sidebar = ({ value, handleChange }) => {
         <Fab
           aria-label="sidebar"
           sx={{ m: 2  , backgroundColor : red[500]}}
-          onClick={toggleDrawer}
+          onClick={() => setDrawerOpen(true)}
           size="small"
         >
           <MenuRounded />
@@ -25,7 +22,7 @@ const Sidebar = ({ value, handleChange }) => {
       <DrawerContent value={value} handleChange={handleChange} />
       <Drawer
         open={openDrawer}
-        onClose={() => toggleDrawer(false)}
+        onClose={() => setDrawerOpen(false)}
         variant="temporary"
         sx={{
           "& .MuiDrawer-paper": {
@@ -35,7 +32,7 @@ const Sidebar = ({ value, handleChange }) => {
         }}
       >
         {/* Drawer content */}
-        <DrawerContent value={value} handleChange={handleChange} />
+        <DrawerContent value={value} handleChange={handleChange} setDrawerOpen={setDrawerOpen} />
       </Drawer>
     </Grid>
   );

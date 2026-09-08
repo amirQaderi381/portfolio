@@ -11,7 +11,7 @@ import {
   TextSnippetRounded,
 } from "@mui/icons-material";
 
-const DrawerContent = ({ value, handleChange }) => {
+const DrawerContent = ({ value, handleChange ,setDrawerOpen }) => {
   const tabProps = (index) => {
     return {
       id: `sidebar-tab-${index}`,
@@ -62,6 +62,7 @@ const DrawerContent = ({ value, handleChange }) => {
               backgroundColor : grey[800]
             },
           }}
+          onClick={()=>setDrawerOpen(false)}
           {...tabProps(0)}
         />
         <Tab
@@ -77,6 +78,7 @@ const DrawerContent = ({ value, handleChange }) => {
               backgroundColor : grey[800]
             },
           }}
+          onClick={()=>setDrawerOpen(false)}
           {...tabProps(1)}
         />
         <Tab
@@ -92,6 +94,7 @@ const DrawerContent = ({ value, handleChange }) => {
               backgroundColor : grey[800]
             },
           }}
+          onClick={()=>setDrawerOpen(false)}
           {...tabProps(2)}
         />
         <Tab
@@ -107,6 +110,7 @@ const DrawerContent = ({ value, handleChange }) => {
               backgroundColor : grey[800]
             },
           }}
+          onClick={()=>setDrawerOpen(false)}
           {...tabProps(3)}
         />
         <Tab
@@ -122,6 +126,7 @@ const DrawerContent = ({ value, handleChange }) => {
               backgroundColor : grey[800]
             },
           }}
+          onClick={()=>setDrawerOpen(false)}
           {...tabProps(4)}
         />
         <Tab
@@ -137,6 +142,7 @@ const DrawerContent = ({ value, handleChange }) => {
               backgroundColor : grey[800]
             },
           }}
+          onClick={()=>setDrawerOpen(false)}
           {...tabProps(5)}
         />
       </Tabs>
