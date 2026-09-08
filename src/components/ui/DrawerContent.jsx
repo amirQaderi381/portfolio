@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Divider,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Divider, Tab, Tabs, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import {
   ConnectWithoutContactRounded,
@@ -60,36 +53,90 @@ const DrawerContent = ({ value, handleChange }) => {
           label="صفحه اصلی"
           icon={<HomeRounded />}
           iconPosition="start"
+          sx={{
+            "&.MuiTab-root": {
+              minHeight: 50,
+              my:0.5,
+              mx :1,
+              borderRadius : 2,
+              backgroundColor : grey[800]
+            },
+          }}
           {...tabProps(0)}
         />
         <Tab
           label="درباره من"
           icon={<FaceRounded />}
           iconPosition="start"
+          sx={{
+            "&.MuiTab-root": {
+              minHeight: 50,
+              my:0.5,
+              mx :1,
+              borderRadius : 2,
+              backgroundColor : grey[800]
+            },
+          }}
           {...tabProps(1)}
         />
         <Tab
           label="رزومه من"
           icon={<TextSnippetRounded />}
           iconPosition="start"
+          sx={{
+            "&.MuiTab-root": {
+              minHeight: 50,
+              my:0.5,
+              mx :1,
+              borderRadius : 2,
+              backgroundColor : grey[800]
+            },
+          }}
           {...tabProps(2)}
         />
         <Tab
           label="نمونه کارها"
           icon={<TerminalRounded />}
           iconPosition="start"
+          sx={{
+            "&.MuiTab-root": {
+              minHeight: 50,
+              my:0.5,
+              mx :1,
+              borderRadius : 2,
+              backgroundColor : grey[800]
+            },
+          }}
           {...tabProps(3)}
         />
         <Tab
           label="نظرات دانشجویان"
           icon={<MessageRounded />}
           iconPosition="start"
+          sx={{
+            "&.MuiTab-root": {
+              minHeight: 50,
+              my:0.5,
+              mx :1,
+              borderRadius : 2,
+              backgroundColor : grey[800]
+            },
+          }}
           {...tabProps(4)}
         />
         <Tab
           label="ارتباط با من"
           icon={<ConnectWithoutContactRounded />}
           iconPosition="start"
+          sx={{
+            "&.MuiTab-root": {
+              minHeight: 50,
+              my:0.5,
+              mx :1,
+              borderRadius : 2,
+              backgroundColor : grey[800]
+            },
+          }}
           {...tabProps(5)}
         />
       </Tabs>
