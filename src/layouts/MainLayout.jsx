@@ -4,7 +4,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import { useEffect } from "react";
-import { theme } from "./../ui/theme";
+import { theme } from "./theme";
 import { Grid } from "@mui/material";
 
 const MainLayout = ({ children, title }) => {

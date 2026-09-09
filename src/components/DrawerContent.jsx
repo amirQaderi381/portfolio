@@ -29,7 +29,7 @@ const DrawerContent = ({ value, handleChange ,setDrawerOpen }) => {
           width: 150,
           margin: "0 auto",
         }}
-        src={require("../../assets/images.jpeg")}
+        src={require("../assets/images.jpeg")}
       >
         AQ
       </Avatar>
