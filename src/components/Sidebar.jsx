@@ -19,7 +19,7 @@ const Sidebar = ({ value, handleChange }) => {
           <MenuRounded />
         </Fab>
       </Box>
-      <DrawerContent value={value} handleChange={handleChange} />
+      <DrawerContent value={value} handleChange={handleChange} setDrawerOpen={setDrawerOpen}/>
       <Drawer
         open={openDrawer}
         onClose={() => setDrawerOpen(false)}

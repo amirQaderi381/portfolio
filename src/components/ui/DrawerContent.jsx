@@ -39,7 +39,7 @@ const DrawerContent = ({ value, handleChange ,setDrawerOpen }) => {
       <Typography variant="caption" color="whitesmoke">
         مدرس و برنامه نویس فول استک
       </Typography>
-      <Divider variant="middle" color={grey[900]} sx={{ mt: 2 }} />
+      <Divider variant="middle" color={grey[900]} sx={{ my: 2 }} />
 
       <Tabs
         orientation="vertical"
