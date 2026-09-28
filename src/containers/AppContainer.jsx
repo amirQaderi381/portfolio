@@ -1,11 +1,12 @@
-import MainLayout from "./layouts/MainLayout";
-import Sidebar from "./components/Sidebar";
-import ContentContainer from "./components/ContentContainer";
+import MainLayout from "../layouts/MainLayout";
+import Sidebar from "../components/sidebar/Sidebar";
 import { useState } from "react";
-import TabPanel from "./components/tabs/TabPanel";
+import TabPanel from "../components/TabPanel";
 import { Typography } from "@mui/material";
+import ContentContainer from "./ContentContainer";
+import SidebarContainer from "./SidebarContainer";
 
-const App = () => {
+const AppContainer = () => {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -13,7 +14,10 @@ const App = () => {
 
   return (
     <MainLayout title="وب سایت شخصی امیر قادری">
-      <Sidebar value={value} handleChange={handleChange} />
+      <SidebarContainer>
+          <Sidebar value={value} handleChange={handleChange} />
+      </SidebarContainer>
+
       <ContentContainer>
         <TabPanel value={value} index={0}>
           <Typography sx={{ textAlign: "center" }}>صفحه اصلی</Typography>
@@ -38,4 +42,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default AppContainer;
