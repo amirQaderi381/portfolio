@@ -1,4 +1,5 @@
 import { Avatar, Typography } from "@mui/material";
+import profile from "../../assets/images.jpeg";
 
 const SidebarHeader = () => {
   return (
@@ -11,7 +12,7 @@ const SidebarHeader = () => {
           width: 150,
           margin: "0 auto",
         }}
-        src={require("../../assets/images.jpeg")}
+        src={profile}
       >
         AQ
       </Avatar>
