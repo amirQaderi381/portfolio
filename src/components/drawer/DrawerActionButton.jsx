@@ -11,7 +11,7 @@ const DrawerActionButton = () => {
     <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
       <Fab
         aria-label="sidebar"
-        sx={{ m: 2, backgroundColor: red[500] }}
+        sx={{ m: 2, backgroundColor: red[500] , position:'absolute' }}
         onClick={() => setDrawerOpen(true)}
         size="small"
       >

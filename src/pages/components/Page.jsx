@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-const TabPanel = (props) => {
+const Page = (props) => {
   const { children, pageNumber, index, ...others } = props;
   return (
     <div
@@ -11,9 +11,9 @@ const TabPanel = (props) => {
       aria-labelledby={`sidebar-tab-${index}`}
       {...others}
     >
-      {pageNumber === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {pageNumber === index && <Box sx={{ height:'100vh' , overflow:'hidden' }}>{children}</Box>}
     </div>
   );
 };
 
-export default TabPanel;
+export default Page;

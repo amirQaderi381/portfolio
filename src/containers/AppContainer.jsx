@@ -1,11 +1,12 @@
 import MainLayout from "../layouts/MainLayout";
 import { Sidebar } from "../components/sidebar";
 import { useState } from "react";
-import TabPanel from "../components/TabPanel";
-import { Typography } from "@mui/material";
-import ContentContainer from "./ContentContainer";
+import Page from "../pages/components/Page";
+import { Box, Typography } from "@mui/material";
+import PagesContainer from "./PagesContainer";
 import SidebarContainer from "./SidebarContainer";
 import MainContext from "../context";
+import { DrawerActionButton } from "../components/drawer";
 
 const AppContainer = () => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -15,34 +16,51 @@ const AppContainer = () => {
   };
 
   return (
-    <MainContext.Provider value={{pageNumber , handlePageNumber , drawerOpen , setDrawerOpen}}>
+    <MainContext.Provider
+      value={{ pageNumber, handlePageNumber, drawerOpen, setDrawerOpen }}
+    >
       <MainLayout title="وب سایت شخصی امیر قادری">
         <SidebarContainer>
-          <Sidebar/>
+          <Sidebar />
         </SidebarContainer>
-
-        <ContentContainer>
-          <TabPanel pageNumber={pageNumber} index={0}>
-            <Typography sx={{ textAlign: "center" }}>صفحه اصلی</Typography>
-          </TabPanel>
-          <TabPanel pageNumber={pageNumber} index={1}>
+        <DrawerActionButton />
+        <PagesContainer>
+          <Page pageNumber={pageNumber} index={0}>
+            <Box
+              sx={{
+                height: "100vh",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundImage: `url(${require("../assets/homePage.jpg")})`,
+              }}
+            >
+              <Typography
+                variant="h5"
+                sx={{ textAlign: "center", color: "whitesmoke" }}
+              >
+                صفحه اصلی
+              </Typography>
+            </Box>
+          </Page>
+          <Page pageNumber={pageNumber} index={1}>
             <Typography sx={{ textAlign: "center" }}>درباره من</Typography>
-          </TabPanel>
-          <TabPanel pageNumber={pageNumber} index={2}>
+          </Page>
+          <Page pageNumber={pageNumber} index={2}>
             <Typography sx={{ textAlign: "center" }}>زومه من</Typography>
-          </TabPanel>
-          <TabPanel pageNumber={pageNumber} index={3}>
+          </Page>
+          <Page pageNumber={pageNumber} index={3}>
             <Typography sx={{ textAlign: "center" }}>نمونه کارها </Typography>
-          </TabPanel>
-          <TabPanel pageNumber={pageNumber} index={4}>
+          </Page>
+          <Page pageNumber={pageNumber} index={4}>
             <Typography sx={{ textAlign: "center" }}>
               نظرات دانشجویان
             </Typography>
-          </TabPanel>
-          <TabPanel pageNumber={pageNumber} index={5}>
+          </Page>
+          <Page pageNumber={pageNumber} index={5}>
             <Typography sx={{ textAlign: "center" }}>ارتباط با من</Typography>
-          </TabPanel>
-        </ContentContainer>
+          </Page>
+        </PagesContainer>
       </MainLayout>
     </MainContext.Provider>
   );
