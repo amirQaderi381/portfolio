@@ -31,7 +31,8 @@ const SidebarTabs = () => {
               my: 0.5,
               mx: 1,
               borderRadius: 2,
-              backgroundColor: grey[800],
+              // backgroundColor: grey[800],
+              backgroundColor: "rgba(15, 23, 42, 0.35)",
             },
           }}
           onClick={() => setDrawerOpen(false)}

@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import homeImage from "../../assets/Home-2.jpg";
+import homeImage from "../assets/Home-2.jpg";
 import { useEffect, useRef } from "react";
 import Typed from "typed.js";
-import ParticlesBackground from "../../components/ParticlesBackground";
+import ParticlesBackground from "../components/ParticlesBackground";
 
 const Home = () => {
   const nameEl = useRef(null);

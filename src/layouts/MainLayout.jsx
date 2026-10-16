@@ -1,19 +1,20 @@
-import { ThemeProvider } from "@mui/material/styles";
-import rtlPlugin from "@mui/stylis-plugin-rtl";
+import { useEffect, useMemo } from "react";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
+import rtlPlugin from "@mui/stylis-plugin-rtl";
 import { prefixer } from "stylis";
-import { useEffect } from "react";
-import { theme } from "./theme";
+import { ThemeProvider } from "@mui/material/styles";
 import { Grid } from "@mui/material";
 
-const MainLayout = ({ children, title }) => {
-  // Note : create RTL cache
-  const cacheRtl = createCache({
-    key: "muirtl",
-    stylisPlugins: [prefixer, rtlPlugin],
-  });
+import { theme } from "./theme";
 
+//NOTE Create RTL Cache
+const cacheRtl = createCache({
+  key: "muirtl",
+  stylisPlugins: [prefixer, rtlPlugin],
+});
+
+const MainLayout = ({ children, title }) => {
   useEffect(() => {
     document.title = title;
   }, [title]);
@@ -21,8 +22,16 @@ const MainLayout = ({ children, title }) => {
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
-        {/* Grid System */}
-        <Grid container sx={{ height: "100vh" }}>
+        <Grid
+          container
+          dir="rtl"
+          sx={{
+            minHeight: "100vh",
+            width: "100%",
+            textAlign: "right !important",
+            flexDirection: "row",
+          }}
+        >
           {children}
         </Grid>
       </ThemeProvider>
