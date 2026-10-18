@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Box, Typography, Button, IconButton } from "@mui/material";
 import { keyframes } from "@mui/material/styles";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -10,6 +10,7 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 import Typed from "typed.js";
 import homeImage from "../assets/main.png";
 import { SiLaravel, SiReact, SiPhp, SiMysql } from "react-icons/si";
+import TextTransition from "../components/TextTransition";
 
 const strings = [
   "توسعه‌دهنده فول‌استک",
@@ -72,44 +73,36 @@ const slideFromLeft = (i = 0) => ({
   animation: `${fromLeft} 0.95s ${EASE} ${i * 0.11}s both`,
 });
 
+export const presets = {
+  default: { type: "spring", stiffness: 170, damping: 26 },
+  gentle: { type: "spring", stiffness: 120, damping: 14 },
+  wobbly: { type: "spring", stiffness: 180, damping: 12 },
+  stiff: { type: "spring", stiffness: 210, damping: 20 },
+  slow: { type: "spring", stiffness: 280, damping: 60 },
+};
+
 export default function NewHome() {
   const nameEl = useRef(null);
-  const infoEl = useRef(null);
+
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (!nameEl.current || !infoEl.current) return;
-
-    // احترام به تنظیم «کاهش حرکت» کاربر: بدون تایپ، متن ثابت نمایش داده شود
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (reduceMotion) {
-      nameEl.current.textContent = "امیر قادری";
-      infoEl.current.textContent = strings[0];
-      return;
-    }
-
     const typedName = new Typed(nameEl.current, {
       strings: ["امیر قادری"],
-      typeSpeed: 75,
+      typeSpeed: 110,
+      backSpeed: 80,
+      backDelay: 50,
       showCursor: false,
     });
 
-    const typedInfo = new Typed(infoEl.current, {
-      strings,
-      startDelay: 900,
-      typeSpeed: 60,
-      backSpeed: 30,
-      backDelay: 1700,
-      loop: true,
-      showCursor: true,
-      cursorChar: "|",
-    });
+    const id = setInterval(
+      () => setIndex((i) => (i + 1) % strings.length),
+      3000,
+    );
 
     return () => {
       typedName.destroy();
-      typedInfo.destroy();
+      clearInterval(id);
     };
   }, []);
 
@@ -334,20 +327,7 @@ export default function NewHome() {
               minWidth: 0,
             }}
           >
-            <Box
-              aria-hidden="true"
-              sx={{
-                width: 4,
-                minHeight: 40,
-                flexShrink: 0,
-                borderRadius: 5,
-                background: "linear-gradient(180deg, #a78bfa, #22d3ee)",
-                boxShadow: "0 0 18px rgba(139,92,246,0.28)",
-              }}
-            />
-
             <Typography
-              ref={infoEl}
               component="div"
               aria-label="عناوین شغلی"
               sx={{
@@ -365,13 +345,10 @@ export default function NewHome() {
                 color: "#67e8f9",
                 lineHeight: 1.8,
                 overflowWrap: "anywhere",
-
-                "& .typed-cursor": {
-                  color: "#a78bfa",
-                  fontWeight: 300,
-                },
               }}
-            />
+            >
+              <TextTransition text={strings[index]} spring={presets.gentle} />
+            </Typography>
           </Box>
 
           <Typography
@@ -789,7 +766,6 @@ export default function NewHome() {
           </Box>
         </Box>
       </Box>
-
     </Box>
   );
 }
