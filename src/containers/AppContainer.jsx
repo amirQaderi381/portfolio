@@ -1,8 +1,15 @@
 import MainLayout from "../layouts/MainLayout";
 import { Sidebar } from "../components/sidebar";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Page from "../pages/components/Page";
-import { Box, Fade, Slide, Typography } from "@mui/material";
+import {
+  Box,
+  Fade,
+  Slide,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import PagesContainer from "./PagesContainer";
 import SidebarContainer from "./SidebarContainer";
 import MainContext from "../context";
@@ -13,6 +20,15 @@ import NewHome from "../pages/NewHome";
 const AppContainer = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const theme = useTheme();
+  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+
+  useEffect(() => {
+    if (isMdUp) {
+      setDrawerOpen(false);
+    }
+  }, [isMdUp]);
 
   const previousPage = useRef(0);
 

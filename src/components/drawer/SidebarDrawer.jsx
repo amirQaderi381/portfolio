@@ -13,6 +13,7 @@ const SidebarDrawer = () => {
         sx={{
           "& .MuiDrawer-paper": {
             width: 300,
+            backgroundColor: "rgba(15, 23, 42, 0.35)",
           },
           display: { xs: "block", sm: "block", md: "none", lg: "none" },
         }}

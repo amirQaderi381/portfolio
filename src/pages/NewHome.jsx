@@ -481,34 +481,6 @@ export default function NewHome() {
               مشاهده نمونه‌کارها
             </Button>
 
-            <IconButton
-              component="a"
-              href="https://github.com/amirQaderi381"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="گیت‌هاب من"
-              title="گیت‌هاب من"
-              sx={{
-                width: 48,
-                height: 48,
-                borderRadius: "13px",
-                color: "#e2e8f0",
-                border: "1px solid rgba(148,163,184,0.2)",
-                background: "rgba(255,255,255,0.035)",
-                transition: "all 0.25s ease",
-                "&:hover": {
-                  transform: "translateY(-3px)",
-                  borderColor: "rgba(103,232,249,0.55)",
-                  background: "rgba(34,211,238,0.1)",
-                },
-                "&:focus-visible": {
-                  outline: "2px solid #67e8f9",
-                  outlineOffset: 4,
-                },
-              }}
-            >
-              <GitHubIcon />
-            </IconButton>
           </Box>
 
           {/* Tech stack */}
