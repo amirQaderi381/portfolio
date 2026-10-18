@@ -1,12 +1,14 @@
 import { useEffect, useRef } from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, IconButton } from "@mui/material";
+import { keyframes } from "@mui/material/styles";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import TerminalIcon from "@mui/icons-material/Terminal";
 import CodeIcon from "@mui/icons-material/Code";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import Typed from "typed.js";
-import homeImage from "../../assets/main.png";
+import homeImage from "../assets/main.png";
 import { SiLaravel, SiReact, SiPhp, SiMysql } from "react-icons/si";
 
 const strings = [
@@ -16,18 +18,77 @@ const strings = [
   "تولیدکننده محتوای برنامه‌نویسی",
 ];
 
+// رنگ‌ها از همان طیف فیروزه‌ای ← نیلی ← بنفش صفحه هستند
 const technologies = [
-  { label: "Laravel", color: "#fb7185", Icon: SiLaravel },
+  { label: "Laravel", color: "#c4b5fd", Icon: SiLaravel },
   { label: "React", color: "#67e8f9", Icon: SiReact },
   { label: "PHP", color: "#a5b4fc", Icon: SiPhp },
-  { label: "MySQL", color: "#fcd34d", Icon: SiMysql },
+  { label: "MySQL", color: "#7dd3fc", Icon: SiMysql },
 ];
+
+// ⚠️ این اعداد نمونه هستند؛ با اعداد واقعی خودتان جایگزین کنید
+// (اگر آرایه را خالی بگذارید، این بخش نمایش داده نمی‌شود)
+const stats = [
+  { value: "۳+", label: "سال تجربه" },
+  { value: "۲۰+", label: "پروژه" },
+  { value: "۱۰۰+", label: "دانشجو" },
+];
+
+/* ---------- Keyframes ---------- */
+// از ویژگی `translate` استفاده شده تا با پلاگین RTL (در صورت وجود) برعکس نشود.
+// متن از سمت راست و تصویر از سمت چپ وارد می‌شود (چینش RTL).
+const fromRight = keyframes`
+  from { opacity: 0; translate: 44px 0; }
+  to   { opacity: 1; translate: 0 0; }
+`;
+
+const fromLeft = keyframes`
+  from { opacity: 0; translate: -44px 0; }
+  to   { opacity: 1; translate: 0 0; }
+`;
+
+const floatBadge = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+`;
+
+const pulseRing = keyframes`
+  0%   { transform: scale(1);   opacity: 0.8; }
+  100% { transform: scale(2.4); opacity: 0; }
+`;
+
+const bounceDown = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+`;
+
+const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+
+const slideFromRight = (i = 0) => ({
+  animation: `${fromRight} 0.85s ${EASE} ${i * 0.11}s both`,
+});
+
+const slideFromLeft = (i = 0) => ({
+  animation: `${fromLeft} 0.95s ${EASE} ${i * 0.11}s both`,
+});
+
 export default function NewHome() {
   const nameEl = useRef(null);
   const infoEl = useRef(null);
 
   useEffect(() => {
     if (!nameEl.current || !infoEl.current) return;
+
+    // احترام به تنظیم «کاهش حرکت» کاربر: بدون تایپ، متن ثابت نمایش داده شود
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reduceMotion) {
+      nameEl.current.textContent = "امیر قادری";
+      infoEl.current.textContent = strings[0];
+      return;
+    }
 
     const typedName = new Typed(nameEl.current, {
       strings: ["امیر قادری"],
@@ -60,13 +121,15 @@ export default function NewHome() {
         position: "relative",
         display: "flex",
         alignItems: "center",
-        height:'100vh',
-        overflowY: "auto",
+        minHeight: "100vh",
+        "@supports (height: 100dvh)": { minHeight: "100dvh" },
         overflowX: "hidden",
         boxSizing: "border-box",
         px: { xs: 2, sm: 4, md: 6, lg: 10, xl: 14 },
-        py: { xs: 5, sm: 7, md: 8 },
+        pt: { xs: 5, sm: 7, md: 8 },
+        pb: { xs: 10, sm: 11, md: 12 },
         color: "#f8fafc",
+        isolation: "isolate",
         background: `
           radial-gradient(
             ellipse at 80% 20%,
@@ -105,6 +168,7 @@ export default function NewHome() {
           "& *, & *::before, & *::after": {
             animationDuration: "0.01ms !important",
             animationIterationCount: "1 !important",
+            animationDelay: "0s !important",
             scrollBehavior: "auto !important",
           },
         },
@@ -116,7 +180,7 @@ export default function NewHome() {
         sx={{
           position: "absolute",
           top: "5%",
-          right: "-130px",
+          insetInlineEnd: "-130px",
           width: { xs: 200, md: 340 },
           height: { xs: 200, md: 340 },
           borderRadius: "50%",
@@ -130,9 +194,9 @@ export default function NewHome() {
       <Box
         aria-hidden="true"
         sx={{
-           position: "absolute",
+          position: "absolute",
           bottom: 0,
-          left: "20%",
+          insetInlineStart: "20%",
           width: 320,
           height: 320,
           borderRadius: "50%",
@@ -162,74 +226,65 @@ export default function NewHome() {
             flex: "1 1 0",
             minWidth: 0,
             width: "100%",
-            textAlign: "left",
-            animation: "heroEnter 0.8s ease both",
-
-            "@keyframes heroEnter": {
-              from: {
-                opacity: 0,
-                transform: "translateY(22px)",
-              },
-              to: {
-                opacity: 1,
-                transform: "translateY(0)",
-              },
-            },
+            textAlign: "start",
           }}
         >
           {/* Welcome badge */}
-          <Box
-            sx={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 1.2,
-              px: 1.8,
-              py: 1,
-              mb: { xs: 3, md: 4 },
-              border: "1px solid rgba(52,211,153,0.2)",
-              borderRadius: "999px",
-              background: "rgba(16,185,129,0.065)",
-              backdropFilter: "blur(14px)",
-              WebkitBackdropFilter: "blur(14px)",
-              maxWidth: "100%",
-            }}
-          >
+          <Box sx={{ ...slideFromRight(0), mb: { xs: 3, md: 4 } }}>
             <Box
               sx={{
-                position: "relative",
-                width: 8,
-                height: 8,
-                flexShrink: 0,
-                borderRadius: "50%",
-                bgcolor: "#34d399",
-                boxShadow: "0 0 12px rgba(52,211,153,0.65)",
-                "&::after": {
-                  content: '""',
-                  position: "absolute",
-                  inset: -4,
-                  border: "1px solid rgba(52,211,153,0.3)",
-                  borderRadius: "50%",
-                },
-              }}
-            />
-
-            <Typography
-              sx={{
-                color: "#a7f3d0",
-                fontSize: { xs: 11, sm: 12 },
-                fontWeight: 600,
-                letterSpacing: 0.1,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 1.2,
+                px: 1.8,
+                py: 1,
+                border: "1px solid rgba(52,211,153,0.2)",
+                borderRadius: "999px",
+                background: "rgba(16,185,129,0.065)",
+                backdropFilter: "blur(14px)",
+                WebkitBackdropFilter: "blur(14px)",
+                maxWidth: "100%",
               }}
             >
-              سلام، به دنیای من خوش اومدی
-            </Typography>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 8,
+                  height: 8,
+                  flexShrink: 0,
+                  borderRadius: "50%",
+                  bgcolor: "#34d399",
+                  boxShadow: "0 0 12px rgba(52,211,153,0.65)",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    inset: 0,
+                    border: "1px solid rgba(52,211,153,0.6)",
+                    borderRadius: "50%",
+                    animation: `${pulseRing} 2s ease-out infinite`,
+                  },
+                }}
+              />
 
-            <AutoAwesomeIcon sx={{ color: "#6ee7b7", fontSize: 15 }} />
+              <Typography
+                sx={{
+                  color: "#a7f3d0",
+                  fontSize: { xs: 12, sm: 12.5 },
+                  fontWeight: 600,
+                  letterSpacing: 0.1,
+                }}
+              >
+                سلام، به دنیای من خوش آمدید
+              </Typography>
+
+              <AutoAwesomeIcon sx={{ color: "#6ee7b7", fontSize: 15 }} />
+            </Box>
           </Box>
 
           <Typography
             component="p"
             sx={{
+              ...slideFromRight(1),
               color: "#94a3b8",
               fontSize: { xs: 15, md: 18 },
               fontWeight: 500,
@@ -239,35 +294,39 @@ export default function NewHome() {
             من هستم،
           </Typography>
 
-          <Typography
-            ref={nameEl}
-            component="h1"
-            sx={{
-              minHeight: { xs: "3.8rem", sm: "4.8rem", md: "5.3rem" },
-              display: "flex",
-              alignItems: "center",
-              fontSize: {
-                xs: "2.45rem",
-                sm: "3.2rem",
-                md: "3.6rem",
-                lg: "4.25rem",
-              },
-              lineHeight: 1.45,
-              fontWeight: 900,
-              letterSpacing: { xs: "-1px", md: "-1.8px" },
-              mb: 2,
-              overflowWrap: "anywhere",
-              background:
-                "linear-gradient(100deg, #ffffff 5%, #c4b5fd 52%, #67e8f9 100%)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          />
+          <Box sx={{ ...slideFromRight(2) }}>
+            <Typography
+              ref={nameEl}
+              component="h1"
+              aria-label="امیر قادری"
+              sx={{
+                minHeight: { xs: "3.8rem", sm: "4.8rem", md: "5.3rem" },
+                display: "flex",
+                alignItems: "center",
+                fontSize: {
+                  xs: "2.45rem",
+                  sm: "3.2rem",
+                  md: "3.6rem",
+                  lg: "4.25rem",
+                },
+                lineHeight: 1.45,
+                fontWeight: 900,
+                letterSpacing: { xs: "-1px", md: "-1.8px" },
+                mb: 2,
+                overflowWrap: "anywhere",
+                background:
+                  "linear-gradient(100deg, #ffffff 5%, #c4b5fd 52%, #67e8f9 100%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            />
+          </Box>
 
           {/* Animated role */}
           <Box
             sx={{
+              ...slideFromRight(3),
               display: "flex",
               alignItems: "stretch",
               gap: 1.5,
@@ -318,21 +377,67 @@ export default function NewHome() {
           <Typography
             component="p"
             sx={{
+              ...slideFromRight(4),
               maxWidth: 540,
               color: "#a1acc0",
               fontSize: { xs: 13.5, sm: 14.5, md: 15.5 },
               lineHeight: { xs: 2, md: 2.15 },
-              mb: { xs: 3, md: 4 },
+              mb: { xs: 3, md: 3.5 },
             }}
           >
             عاشق ساختن محصولات دیجیتال، حل چالش‌های فنی و تبدیل ایده‌ها به
-            تجربه‌های کاربردی هستم. اینجا جاییه که خلاقیت و کدنویسی به هم
-            می‌رسن.
+            تجربه‌های کاربردی هستم. اینجا جایی است که خلاقیت و کدنویسی به هم
+            می‌رسند.
           </Typography>
+
+          {/* Stats */}
+          {stats.length > 0 && (
+            <Box
+              sx={{
+                ...slideFromRight(5),
+                display: "flex",
+                flexWrap: "wrap",
+                gap: { xs: 1.5, sm: 2 },
+                mb: { xs: 3, md: 3.5 },
+              }}
+            >
+              {stats.map(({ value, label }) => (
+                <Box
+                  key={label}
+                  sx={{
+                    minWidth: { xs: 92, sm: 108 },
+                    px: 2,
+                    py: 1.2,
+                    borderRadius: "14px",
+                    border: "1px solid rgba(148,163,184,0.14)",
+                    background: "rgba(255,255,255,0.035)",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "1.25rem", sm: "1.45rem" },
+                      fontWeight: 900,
+                      lineHeight: 1.5,
+                      background: "linear-gradient(100deg, #c4b5fd, #67e8f9)",
+                      backgroundClip: "text",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    {value}
+                  </Typography>
+                  <Typography sx={{ color: "#94a3b8", fontSize: 12 }}>
+                    {label}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          )}
 
           {/* Actions */}
           <Box
             sx={{
+              ...slideFromRight(6),
               display: "flex",
               alignItems: "center",
               flexWrap: "wrap",
@@ -371,10 +476,7 @@ export default function NewHome() {
 
             <Button
               component="a"
-              href="https://github.com/amirQaderi381"
-              target="_blank"
-              rel="noopener noreferrer"
-              startIcon={<GitHubIcon />}
+              href="#projects"
               sx={{
                 minHeight: 48,
                 px: { xs: 2.2, sm: 3 },
@@ -399,20 +501,50 @@ export default function NewHome() {
                 },
               }}
             >
-              گیت‌هاب من
+              مشاهده نمونه‌کارها
             </Button>
+
+            <IconButton
+              component="a"
+              href="https://github.com/amirQaderi381"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="گیت‌هاب من"
+              title="گیت‌هاب من"
+              sx={{
+                width: 48,
+                height: 48,
+                borderRadius: "13px",
+                color: "#e2e8f0",
+                border: "1px solid rgba(148,163,184,0.2)",
+                background: "rgba(255,255,255,0.035)",
+                transition: "all 0.25s ease",
+                "&:hover": {
+                  transform: "translateY(-3px)",
+                  borderColor: "rgba(103,232,249,0.55)",
+                  background: "rgba(34,211,238,0.1)",
+                },
+                "&:focus-visible": {
+                  outline: "2px solid #67e8f9",
+                  outlineOffset: 4,
+                },
+              }}
+            >
+              <GitHubIcon />
+            </IconButton>
           </Box>
 
           {/* Tech stack */}
           <Box
             sx={{
+              ...slideFromRight(7),
               display: "flex",
               flexWrap: "wrap",
               alignItems: "center",
               gap: 1.5,
             }}
           >
-            <TerminalIcon sx={{ color: "#64748b", fontSize: 21, ml: 0.5 }} />
+            <TerminalIcon sx={{ color: "#94a3b8", fontSize: 21, mx: 0.5 }} />
 
             {technologies.map(({ label, color, Icon }) => (
               <Box
@@ -457,6 +589,7 @@ export default function NewHome() {
         {/* Character / Hero image */}
         <Box
           sx={{
+            ...slideFromLeft(2),
             flex: "1 1 0",
             minWidth: 0,
             width: "100%",
@@ -466,18 +599,6 @@ export default function NewHome() {
             alignItems: "center",
             justifyContent: "center",
             mx: "auto",
-            animation: "imageEnter 1s ease 0.1s both",
-
-            "@keyframes imageEnter": {
-              from: {
-                opacity: 0,
-                transform: "translateY(18px) scale(0.98)",
-              },
-              to: {
-                opacity: 1,
-                transform: "translateY(0) scale(1)",
-              },
-            },
           }}
         >
           {/* Ambient glow */}
@@ -518,8 +639,7 @@ export default function NewHome() {
                 content: '""',
                 position: "absolute",
                 top: 0,
-                left: "15%",
-                right: "15%",
+                insetInline: "15%",
                 height: "1px",
                 background:
                   "linear-gradient(90deg, transparent, rgba(167,139,250,0.65), rgba(103,232,249,0.65), transparent)",
@@ -579,7 +699,7 @@ export default function NewHome() {
             sx={{
               position: "absolute",
               top: { xs: 12, md: 32 },
-              right: { xs: -5, sm: -14, md: -20 },
+              insetInlineEnd: { xs: -5, sm: -14, md: -20 },
               zIndex: 2,
               display: "flex",
               alignItems: "center",
@@ -592,12 +712,7 @@ export default function NewHome() {
               backdropFilter: "blur(18px)",
               WebkitBackdropFilter: "blur(18px)",
               boxShadow: "0 12px 35px rgba(0,0,0,0.2)",
-              animation: "floatBadge 4s ease-in-out infinite",
-
-              "@keyframes floatBadge": {
-                "0%, 100%": { transform: "translateY(0)" },
-                "50%": { transform: "translateY(-7px)" },
-              },
+              animation: `${floatBadge} 4s ease-in-out infinite`,
             }}
           >
             <Box
@@ -614,13 +729,13 @@ export default function NewHome() {
               <TerminalIcon sx={{ fontSize: 19 }} />
             </Box>
 
-            <Box>
+            <Box sx={{ direction: "ltr", textAlign: "left" }}>
               <Typography
-                sx={{ color: "#f1f5f9", fontSize: 11, fontWeight: 800 }}
+                sx={{ color: "#f1f5f9", fontSize: 12, fontWeight: 800 }}
               >
                 Developer
               </Typography>
-              <Typography sx={{ color: "#94a3b8", fontSize: 10 }}>
+              <Typography sx={{ color: "#94a3b8", fontSize: 11 }}>
                 Building ideas
               </Typography>
             </Box>
@@ -631,7 +746,7 @@ export default function NewHome() {
             sx={{
               position: "absolute",
               bottom: { xs: 12, md: 30 },
-              left: { xs: -4, sm: -12, md: -20 },
+              insetInlineStart: { xs: -4, sm: -12, md: -20 },
               zIndex: 2,
               display: "flex",
               alignItems: "center",
@@ -644,7 +759,7 @@ export default function NewHome() {
               backdropFilter: "blur(18px)",
               WebkitBackdropFilter: "blur(18px)",
               boxShadow: "0 12px 35px rgba(0,0,0,0.2)",
-              animation: "floatBadge 4.5s ease-in-out 0.5s infinite",
+              animation: `${floatBadge} 4.5s ease-in-out 0.5s infinite`,
             }}
           >
             <Box
@@ -661,19 +776,20 @@ export default function NewHome() {
               <CodeIcon sx={{ fontSize: 19 }} />
             </Box>
 
-            <Box>
+            <Box sx={{ direction: "ltr", textAlign: "left" }}>
               <Typography
-                sx={{ color: "#f1f5f9", fontSize: 11, fontWeight: 800 }}
+                sx={{ color: "#f1f5f9", fontSize: 12, fontWeight: 800 }}
               >
                 Full Stack
               </Typography>
-              <Typography sx={{ color: "#94a3b8", fontSize: 10 }}>
+              <Typography sx={{ color: "#94a3b8", fontSize: 11 }}>
                 Laravel & React
               </Typography>
             </Box>
           </Box>
         </Box>
       </Box>
+
     </Box>
   );
 }

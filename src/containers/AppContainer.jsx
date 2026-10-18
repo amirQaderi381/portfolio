@@ -7,8 +7,8 @@ import PagesContainer from "./PagesContainer";
 import SidebarContainer from "./SidebarContainer";
 import MainContext from "../context";
 import { DrawerActionButton } from "../components/drawer";
-import NewHome from "../pages/components/NewHome";
 import { Home, About } from "../pages";
+import NewHome from "../pages/NewHome";
 
 const AppContainer = () => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -57,7 +57,7 @@ const AppContainer = () => {
                 <Fade key={`fade-${pageNumber}`} in timeout={300}>
                   <Box sx={{ height: "100%" }}>
                     <Page pageNumber={pageNumber} index={0}>
-                      <Home />
+                      <NewHome />
                     </Page>
 
                     <Page pageNumber={pageNumber} index={1}>

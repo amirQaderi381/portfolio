@@ -1,51 +1,59 @@
-import htmlIcon from "../assets/icons/html.svg";
+import htmlIcon from "../assets/icons/html5-original.svg";
 import cssIcon from "../assets/icons/css.svg";
-import jsIcon from "../assets/icons/js.svg";
+import jsIcon from "../assets/icons/javascript-original.svg";
 import tailwindIcon from "../assets/icons/tailwind.svg";
 import phpIcon from "../assets/icons/php.svg";
 import laravelIcon from "../assets/icons/laravel.svg";
+import reactIcon from "../assets/icons/react-original.svg";
 
+// رنگ‌ها از همان طیف فیروزه‌ای → نیلی → بنفش قالب صفحه انتخاب شده‌اند
 export const devSkills = {
-  htmlSkill : {
+  htmlSkill: {
     id: 1,
     name: "HTML",
     icon: htmlIcon,
-    color: "warning",
+    color: "#E34F26",
   },
-  cssSkill : {
+  cssSkill: {
     id: 2,
     name: "CSS",
     icon: cssIcon,
-    color: "info",
+    color: "#1572B6",
   },
-  TailwindSkill : {
+  TailwindSkill: {
     id: 3,
     name: "Tailwind CSS",
     icon: tailwindIcon,
-    color: "info",
+    color: "#06B6D4",
   },
-  jsSkill : {
+  jsSkill: {
     id: 4,
     name: "JavaScript",
     icon: jsIcon,
-    color: "warning",
+    color: "#F7DF1E",
   },
-  ReactSkill : {
+  ReactSkill: {
     id: 5,
     name: "React.js",
-    icon: htmlIcon,
+    icon: reactIcon,
     color: "#61DAFB",
   },
-  phpSkill : {
+  phpSkill: {
     id: 6,
     name: "PHP",
     icon: phpIcon,
-    color: "secondary",
+    color: "#777BB4",
   },
-  laravelSkill : {
+  laravelSkill: {
     id: 7,
     name: "Laravel",
     icon: laravelIcon,
-   color: "error",
+     color: "#FF2D20",
   },
+  // NextSkill: {
+  //   id: 8,
+  //   name: "Next.js",
+  //   icon: nextjsIcon,
+  //   color: "#FFFFFF",
+  // },
 };

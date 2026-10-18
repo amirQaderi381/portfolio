@@ -3,7 +3,7 @@ import { blue, red } from "@mui/material/colors";
 
 //NOTE Create Custom Theme
 export const theme = createTheme({
- direction: 'rtl',
+  direction: "rtl",
   palette: {
     mode: "dark",
     primary: {
