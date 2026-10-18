@@ -28,7 +28,7 @@ const MainLayout = ({ children, title }) => {
           sx={{
             minHeight: "100vh",
             width: "100%",
-            textAlign: "right !important",
+            textAlign: "start",
             flexDirection: "row",
           }}
         >

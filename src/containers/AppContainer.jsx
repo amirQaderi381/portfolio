@@ -16,6 +16,7 @@ import MainContext from "../context";
 import { DrawerActionButton } from "../components/drawer";
 import { Home, About } from "../pages";
 import NewHome from "../pages/NewHome";
+import Resume from "../pages/Resume";
 
 const AppContainer = () => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -81,20 +82,7 @@ const AppContainer = () => {
                     </Page>
 
                     <Page pageNumber={pageNumber} index={2}>
-                      <Box
-                        sx={{
-                          "/* @noflip */ right": 0,
-                        }}
-                      >
-                        <Typography
-                          sx={{
-                            textAlign: "start",
-                            width: "100%",
-                          }}
-                        >
-                          رزومه من
-                        </Typography>
-                      </Box>
+                      <Resume/>
                     </Page>
 
                     <Page pageNumber={pageNumber} index={3}>
