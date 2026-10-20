@@ -123,7 +123,14 @@ export default function NewHome() {
         color: "text.primary",
         isolation: "isolate",
         background: h("sectionBg"),
-
+        scrollbarWidth: "thin",
+        scrollbarColor: h("sectionBg"),
+        WebkitOverflowScrolling: "touch",
+        "&::-webkit-scrollbar": { width: 6 },
+        "&::-webkit-scrollbar-thumb": {
+          background: h("sectionBg"),
+          borderRadius: 10,
+        },
         "&::before": {
           content: '""',
           position: "absolute",
@@ -253,7 +260,9 @@ export default function NewHome() {
                 سلام، به دنیای من خوش آمدید
               </Typography>
 
-              <AutoAwesomeIcon sx={{ color: h("welcome.icon"), fontSize: 15 }} />
+              <AutoAwesomeIcon
+                sx={{ color: h("welcome.icon"), fontSize: 15 }}
+              />
             </Box>
           </Box>
 

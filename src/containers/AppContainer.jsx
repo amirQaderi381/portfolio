@@ -18,6 +18,7 @@ import { Home, About } from "../pages";
 import NewHome from "../pages/NewHome";
 import Resume from "../pages/Resume";
 import Portfolio from "../pages/Portfolio";
+import Contact from "../pages/Contact";
 
 const AppContainer = () => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -107,9 +108,7 @@ const AppContainer = () => {
                     </Page> */}
 
                     <Page pageNumber={pageNumber} index={4}>
-                      <Typography sx={{ textAlign: "center" }}>
-                        ارتباط با من
-                      </Typography>
+                     <Contact/>
                     </Page>
                   </Box>
                 </Fade>
