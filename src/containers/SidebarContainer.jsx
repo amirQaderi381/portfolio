@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material";
-import { grey } from "@mui/material/colors";
 
 const SidebarContainer = ({ children }) => {
   return (
@@ -10,15 +9,12 @@ const SidebarContainer = ({ children }) => {
         height: "100vh",
         overflowY: "auto",
         overflowX: "hidden",
-        background: `
-      linear-gradient(
-        145deg,
-        rgba(10, 18, 38, 0.96) 0%,
-        rgba(5, 10, 25, 0.92) 55%,
-        rgba(16, 35, 85, 0.88) 100%
-      )
-    `,
-
+        background: (theme) =>
+          theme.palette.mode === "dark"
+            ? theme.custom.gradients.background
+            : theme.palette.background.default,
+        color: "text.primary",
+        borderColor: "divider",
       }}
     >
       {children}

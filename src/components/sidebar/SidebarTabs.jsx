@@ -18,6 +18,40 @@ const SidebarTabs = () => {
       allowScrollButtonsMobile
       value={pageNumber}
       onChange={handlePageNumber}
+      sx={{
+        "& .MuiTabs-indicator": {
+          backgroundColor: "primary.main",
+          borderRadius: 2,
+          width: 3,
+        },
+
+        "& .MuiTab-root": {
+          color: "text.secondary",
+          transition: "all 0.25s ease",
+
+          "& .MuiSvgIcon-root": {
+            color: "inherit",
+          },
+
+          "&:hover": {
+            color: "primary.main",
+            backgroundColor: "action.hover",
+          },
+
+          "&.Mui-selected": {
+            color: "primary.main",
+            backgroundColor: (theme) => `${theme.palette.primary.main}18`,
+            border: "1px solid",
+            borderColor: (theme) => `${theme.palette.primary.main}40`,
+          },
+
+          "&:focus-visible": {
+            outline: "2px solid",
+            outlineColor: "primary.main",
+            outlineOffset: -2,
+          },
+        },
+      }}
     >
       {data.map((tab, index) => (
         <Tab
@@ -26,14 +60,13 @@ const SidebarTabs = () => {
           icon={tab.icon}
           iconPosition="start"
           sx={{
-            "&.MuiTab-root": {
-              minHeight: 50,
-              my: 0.5,
-              mx: 1,
-              borderRadius: 2,
-              // backgroundColor: grey[800],
-              backgroundColor: "rgba(15, 23, 42, 0.35)",
-            },
+            minHeight: 50,
+            my: 0.5,
+            mx: 1,
+            borderRadius: 2,
+            backgroundColor: "action.hover",
+            border: "1px solid",
+            borderColor: "transparent",
           }}
           onClick={() => setDrawerOpen(false)}
           {...tab}

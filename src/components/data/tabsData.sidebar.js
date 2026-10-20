@@ -28,15 +28,15 @@ export const tabsData = () => {
       icon: <TerminalRounded />,
       tabprops: { ...tabProps(3) },
     },
-    {
-      label: "ظرات دانشجویان",
-      icon: <MessageRounded />,
-      tabprops: { ...tabProps(4) },
-    },
+    // {
+    //   label: "ظرات دانشجویان",
+    //   icon: <MessageRounded />,
+    //   tabprops: { ...tabProps(4) },
+    // },
     {
       label: "ارتباط با من",
       icon: <ConnectWithoutContactRounded />,
-      tabprops: { ...tabProps(5) },
+      tabprops: { ...tabProps(4) },
     },
   ];
 };

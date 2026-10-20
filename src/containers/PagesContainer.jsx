@@ -1,30 +1,21 @@
 import { Grid } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const PagesContainer = ({ children }) => {
+  const theme = useTheme();
+
   return (
     <Grid
       size={{ xs: 12, md: 9, lg: 10 }}
       sx={{
-        background: `
-          radial-gradient(
-            ellipse at 80% 20%,
-            rgba(124, 58, 237, 0.18),
-            transparent 42%
-          ),
-          radial-gradient(
-            ellipse at 12% 82%,
-            rgba(6, 182, 212, 0.12),
-            transparent 38%
-          ),
-          linear-gradient(
-            135deg,
-            #070a14 0%,
-            #0b1020 52%,
-            #101126 100%
-          )
-        `,
+        background:
+          theme.palette.mode === "dark"
+            ? theme.custom.gradients.background
+            : theme.palette.background.default,
+        color: theme.palette.text.primary,
         height: "100vh",
         overflow: "hidden",
+        transition: "background 0.3s ease, color 0.3s ease",
       }}
     >
       {children}

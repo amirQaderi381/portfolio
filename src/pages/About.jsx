@@ -5,7 +5,6 @@ import {
   PersonRounded,
   LocationOnRounded,
   EmailRounded,
-  PhoneRounded,
   CakeRounded,
   AutoAwesomeRounded,
   TerminalRounded,
@@ -28,12 +27,18 @@ import DevInfo from "./components/DevInfo";
 import Skill from "./components/Skill";
 import { devSkills } from "../constants/Skills";
 
+/* ---------- Theme helper ---------- */
+// a("panel.bg")  ==  (theme) => theme.custom.about.panel.bg
+// همه رنگ‌ها در theme.js (custom.about) تعریف شده‌اند و بسته به مود لایت/دارک خوانده می‌شوند.
+const a = (path) => (theme) =>
+  path.split(".").reduce((obj, key) => obj?.[key], theme.custom.about);
+
 const About = () => {
   const [html, setHtml] = useState(0);
   const [css, setCss] = useState(0);
   const [js, setJs] = useState(0);
   const [tailwind, setTailwind] = useState(0);
-  const [react , setReact] = useState(0);
+  const [react, setReact] = useState(0);
   const [php, setPhp] = useState(0);
   const [laravel, setLaravel] = useState(0);
 
@@ -66,7 +71,7 @@ const About = () => {
         return Math.min(prevProgress + diff, 90);
       });
 
-       setReact((prevProgress) => {
+      setReact((prevProgress) => {
         const diff = Math.random() * 10;
         return Math.min(prevProgress + diff, 71);
       });
@@ -80,11 +85,11 @@ const About = () => {
         const diff = Math.random() * 10;
         return Math.min(prevProgress + diff, 88);
       });
-
-      return () => {
-        clearInterval(timer);
-      };
     }, 200);
+
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
 
   const {
@@ -118,35 +123,37 @@ const About = () => {
       label: "ایمیل",
       content: "amirqaderi381@gmail.com",
       href: "mailto:amirqaderi381@gmail.com",
-    }
+    },
   ];
 
   const panelSx = {
-    backgroundColor: "rgba(15, 23, 42, 0.76)",
-    border: "1px solid rgba(148, 163, 184, 0.13)",
+    backgroundColor: a("panel.bg"),
+    border: "1px solid",
+    borderColor: a("panel.border"),
     borderRadius: 4,
     backdropFilter: "blur(18px)",
     WebkitBackdropFilter: "blur(18px)",
-    boxShadow: "0 15px 45px rgba(0, 0, 0, 0.18)",
+    boxShadow: a("panel.shadow"),
     transition: "border-color 0.3s ease, transform 0.3s ease",
     "&:hover": {
-      borderColor: "rgba(139, 233, 253, 0.3)",
+      borderColor: a("panel.hoverBorder"),
     },
   };
 
   const headingChipSx = {
     height: "auto",
     borderRadius: 2.5,
-    backgroundColor: "rgba(139, 233, 253, 0.1)",
-    color: "#8be9fd",
-    border: "1px solid rgba(139, 233, 253, 0.2)",
+    backgroundColor: a("headingChip.bg"),
+    color: a("headingChip.color"),
+    border: "1px solid",
+    borderColor: a("headingChip.border"),
     "& .MuiChip-label": {
       px: 1.5,
       py: 1,
       whiteSpace: "normal",
     },
     "& .MuiChip-icon": {
-      color: "#8be9fd",
+      color: a("headingChip.color"),
     },
   };
 
@@ -168,9 +175,8 @@ const About = () => {
         boxSizing: "border-box",
         px: { xs: 1.5, sm: 3, md: 5, lg: 8 },
         py: { xs: 3, sm: 4, md: 6 },
-        background:
-          "radial-gradient(ellipse at 10% 10%, rgba(59,130,246,0.13), transparent 40%), radial-gradient(ellipse at 90% 85%, rgba(139,92,246,0.12), transparent 38%), #080d19",
-        color: "#f1f5f9",
+        background: a("sectionBg"),
+        color: "text.primary",
         fontFamily: "'Vazirmatn', 'Estedad', Tahoma, sans-serif",
         "&::before": {
           content: '""',
@@ -178,9 +184,8 @@ const About = () => {
           inset: 0,
           zIndex: -1,
           pointerEvents: "none",
-          opacity: 0.13,
-          backgroundImage:
-            "radial-gradient(rgba(148,163,184,0.6) 0.7px, transparent 0.7px)",
+          opacity: a("dotsOpacity"),
+          backgroundImage: a("dotsImage"),
           backgroundSize: "24px 24px",
         },
       }}
@@ -193,10 +198,11 @@ const About = () => {
             label="کمی بیشتر درباره من"
             sx={{
               mb: 2,
-              color: "#8be9fd",
-              bgcolor: "rgba(139,233,253,0.08)",
-              border: "1px solid rgba(139,233,253,0.2)",
-              "& .MuiChip-icon": { color: "#8be9fd" },
+              color: a("pageChip.color"),
+              bgcolor: a("pageChip.bg"),
+              border: "1px solid",
+              borderColor: a("pageChip.border"),
+              "& .MuiChip-icon": { color: a("pageChip.color") },
             }}
           />
 
@@ -207,8 +213,7 @@ const About = () => {
               fontWeight: 900,
               letterSpacing: "-1px",
               lineHeight: 1.5,
-              background:
-                "linear-gradient(90deg, #8be9fd 10%, #a5b4fc 55%, #c4b5fd 100%)",
+              background: a("titleGradient"),
               backgroundClip: "text",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -220,7 +225,7 @@ const About = () => {
           <Typography
             sx={{
               mt: 1,
-              color: "#94a3b8",
+              color: "text.secondary",
               fontSize: { xs: "0.85rem", sm: "1rem" },
               lineHeight: 2,
             }}
@@ -235,8 +240,8 @@ const About = () => {
               mx: "auto",
               mt: 2,
               borderRadius: 5,
-              background: "linear-gradient(90deg, #8be9fd, #818cf8)",
-              boxShadow: "0 0 18px rgba(139,233,253,0.4)",
+              background: a("underline.bg"),
+              boxShadow: a("underline.shadow"),
             }}
           />
         </Box>
@@ -280,14 +285,12 @@ const About = () => {
                     aspectRatio: "1",
                     p: "5px",
                     borderRadius: "30px",
-                    background:
-                      "linear-gradient(135deg, #8be9fd, #6366f1 55%, #c084fc)",
-                    boxShadow:
-                      "0 0 30px rgba(99,102,241,0.2), 0 0 60px rgba(139,233,253,0.08)",
+                    background: a("avatar.frame"),
+                    boxShadow: a("avatar.shadow"),
                     transition: "transform 0.35s ease, box-shadow 0.35s ease",
                     "&:hover": {
                       transform: "translateY(-5px)",
-                      boxShadow: "0 0 38px rgba(139,233,253,0.28)",
+                      boxShadow: a("avatar.hoverShadow"),
                     },
                   }}
                 >
@@ -299,8 +302,9 @@ const About = () => {
                       width: "100%",
                       height: "100%",
                       borderRadius: "26px",
-                      border: "3px solid #111827",
-                      bgcolor: "#111827",
+                      border: "3px solid",
+                      borderColor: a("avatar.innerBorder"),
+                      bgcolor: a("avatar.innerBg"),
                     }}
                   >
                     AQ
@@ -315,9 +319,11 @@ const About = () => {
                       px: 2,
                       py: 0.7,
                       borderRadius: 10,
-                      bgcolor: "#111827",
-                      border: "1px solid rgba(139,233,253,0.4)",
-                      color: "#8be9fd",
+                      bgcolor: a("avatar.badgeBg"),
+                      border: "1px solid",
+                      borderColor: a("avatar.badgeBorder"),
+                      boxShadow: a("avatar.badgeShadow"),
+                      color: a("avatar.badgeColor"),
                       whiteSpace: "nowrap",
                       fontSize: "0.75rem",
                       fontWeight: 700,
@@ -333,7 +339,7 @@ const About = () => {
                 <Box sx={{ textAlign: "right", mb: 2.5 }}>
                   <Typography
                     sx={{
-                      color: "#8be9fd",
+                      color: a("accent"),
                       fontSize: { xs: "0.8rem", sm: "0.9rem" },
                       fontWeight: 700,
                       mb: 1,
@@ -362,10 +368,10 @@ const About = () => {
                       label="مدرس برنامه‌نویسی"
                       sx={{
                         ...headingChipSx,
-                        bgcolor: "rgba(196,181,253,0.09)",
-                        color: "#c4b5fd",
-                        borderColor: "rgba(196,181,253,0.22)",
-                        "& .MuiChip-icon": { color: "#c4b5fd" },
+                        bgcolor: a("headingChip2.bg"),
+                        color: a("headingChip2.color"),
+                        borderColor: a("headingChip2.border"),
+                        "& .MuiChip-icon": { color: a("headingChip2.color") },
                       }}
                     />
                   </Box>
@@ -373,7 +379,7 @@ const About = () => {
 
                 <Typography
                   sx={{
-                    color: "#cbd5e1",
+                    color: a("bodyText"),
                     fontSize: { xs: "0.88rem", sm: "0.95rem" },
                     lineHeight: 2.1,
                     mb: 2.5,
@@ -390,7 +396,7 @@ const About = () => {
                 <Divider
                   sx={{
                     mb: 2.5,
-                    borderColor: "rgba(148,163,184,0.15)",
+                    borderColor: a("divider"),
                   }}
                 />
 
@@ -410,12 +416,13 @@ const About = () => {
                           minHeight: 70,
                           boxSizing: "border-box",
                           borderRadius: 2.5,
-                          bgcolor: "rgba(255,255,255,0.025)",
-                          border: "1px solid rgba(148,163,184,0.09)",
+                          bgcolor: a("info.bg"),
+                          border: "1px solid",
+                          borderColor: a("info.border"),
                           transition: "all 0.25s ease",
                           "&:hover": {
-                            bgcolor: "rgba(139,233,253,0.06)",
-                            borderColor: "rgba(139,233,253,0.25)",
+                            bgcolor: a("info.hoverBg"),
+                            borderColor: a("info.hoverBorder"),
                             transform: "translateY(-2px)",
                           },
                         }}
@@ -428,8 +435,8 @@ const About = () => {
                             display: "grid",
                             placeItems: "center",
                             borderRadius: 2,
-                            bgcolor: "rgba(139,233,253,0.09)",
-                            color: "#8be9fd",
+                            bgcolor: a("info.iconBg"),
+                            color: a("info.iconColor"),
                             "& svg": { fontSize: 21 },
                           }}
                         >
@@ -439,7 +446,7 @@ const About = () => {
                         <Box sx={{ minWidth: 0, flex: 1 }}>
                           <Typography
                             sx={{
-                              color: "#94a3b8",
+                              color: "text.secondary",
                               fontSize: "0.75rem",
                               mb: 0.5,
                             }}
@@ -449,7 +456,7 @@ const About = () => {
 
                           <Box
                             sx={{
-                              color: "#e2e8f0",
+                              color: a("info.value"),
                               fontSize: "0.85rem",
                               fontWeight: 600,
                               overflowWrap: "anywhere",
@@ -470,7 +477,7 @@ const About = () => {
                                     direction: "ltr",
                                     display: "inline-block",
                                     transition: "color 0.2s ease",
-                                    "&:hover": { color: "#8be9fd" },
+                                    "&:hover": { color: a("accent") },
                                   }}
                                 >
                                   {item.content}
@@ -530,9 +537,10 @@ const About = () => {
                     width: 45,
                     height: 45,
                     borderRadius: 2.5,
-                    color: "#c4b5fd",
-                    bgcolor: "rgba(196,181,253,0.1)",
-                    border: "1px solid rgba(196,181,253,0.15)",
+                    color: a("skills.iconColor"),
+                    bgcolor: a("skills.iconBg"),
+                    border: "1px solid",
+                    borderColor: a("skills.iconBorder"),
                   }}
                 >
                   <TerminalRounded />
@@ -544,7 +552,7 @@ const About = () => {
                     sx={{
                       fontSize: { xs: "1.15rem", sm: "1.4rem" },
                       fontWeight: 800,
-                      color: "#f1f5f9",
+                      color: "text.primary",
                     }}
                   >
                     مهارت‌های من
@@ -553,7 +561,7 @@ const About = () => {
                   <Typography
                     sx={{
                       mt: 0.5,
-                      color: "#94a3b8",
+                      color: "text.secondary",
                       fontSize: "0.8rem",
                     }}
                   >
@@ -566,9 +574,10 @@ const About = () => {
                 label="My Tech Stack"
                 size="small"
                 sx={{
-                  color: "#8be9fd",
-                  bgcolor: "rgba(139,233,253,0.07)",
-                  border: "1px solid rgba(139,233,253,0.15)",
+                  color: a("skills.chipColor"),
+                  bgcolor: a("skills.chipBg"),
+                  border: "1px solid",
+                  borderColor: a("skills.chipBorder"),
                   fontSize: "0.7rem",
                 }}
               />
@@ -577,7 +586,7 @@ const About = () => {
             <Divider
               sx={{
                 mb: 3,
-                borderColor: "rgba(148,163,184,0.13)",
+                borderColor: a("divider"),
               }}
             />
 
@@ -647,13 +656,13 @@ const About = () => {
           sx={{
             mt: 3,
             textAlign: "center",
-            color: "#94a3b8",
+            color: "text.secondary",
             fontSize: "0.75rem",
             lineHeight: 2,
           }}
         >
           ساخته‌شده با علاقه به کدنویسی و یادگیری مداوم
-          <Box component="span" sx={{ color: "#8be9fd", mx: 0.75 }}>
+          <Box component="span" sx={{ color: a("accent"), mx: 0.75 }}>
             {"</>"}
           </Box>
         </Typography>

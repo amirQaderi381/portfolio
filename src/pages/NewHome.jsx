@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Box, Typography, Button, IconButton } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { keyframes } from "@mui/material/styles";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import TerminalIcon from "@mui/icons-material/Terminal";
 import CodeIcon from "@mui/icons-material/Code";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import Typed from "typed.js";
 import homeImage from "../assets/main.png";
 import { SiLaravel, SiReact, SiPhp, SiMysql } from "react-icons/si";
@@ -19,12 +17,12 @@ const strings = [
   "تولیدکننده محتوای برنامه‌نویسی",
 ];
 
-// رنگ‌ها از همان طیف فیروزه‌ای ← نیلی ← بنفش صفحه هستند
+// رنگ هر تکنولوژی از theme.custom.home.technologies[label] خوانده می‌شود
 const technologies = [
-  { label: "Laravel", color: "#c4b5fd", Icon: SiLaravel },
-  { label: "React", color: "#67e8f9", Icon: SiReact },
-  { label: "PHP", color: "#a5b4fc", Icon: SiPhp },
-  { label: "MySQL", color: "#7dd3fc", Icon: SiMysql },
+  { label: "Laravel", Icon: SiLaravel },
+  { label: "React", Icon: SiReact },
+  { label: "PHP", Icon: SiPhp },
+  { label: "MySQL", Icon: SiMysql },
 ];
 
 // ⚠️ این اعداد نمونه هستند؛ با اعداد واقعی خودتان جایگزین کنید
@@ -34,6 +32,12 @@ const stats = [
   { value: "۲۰+", label: "پروژه" },
   { value: "۱۰۰+", label: "دانشجو" },
 ];
+
+/* ---------- Theme helper ---------- */
+// h("welcome.border")  ==  (theme) => theme.custom.home.welcome.border
+// همه رنگ‌ها در theme.js تعریف شده‌اند و بسته به مود لایت/دارک خوانده می‌شوند.
+const h = (path) => (theme) =>
+  path.split(".").reduce((obj, key) => obj?.[key], theme.custom.home);
 
 /* ---------- Keyframes ---------- */
 // از ویژگی `translate` استفاده شده تا با پلاگین RTL (در صورت وجود) برعکس نشود.
@@ -56,11 +60,6 @@ const floatBadge = keyframes`
 const pulseRing = keyframes`
   0%   { transform: scale(1);   opacity: 0.8; }
   100% { transform: scale(2.4); opacity: 0; }
-`;
-
-const bounceDown = keyframes`
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(6px); }
 `;
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
@@ -121,26 +120,9 @@ export default function NewHome() {
         px: { xs: 2, sm: 4, md: 6, lg: 10, xl: 14 },
         pt: { xs: 5, sm: 7, md: 8 },
         pb: { xs: 10, sm: 11, md: 12 },
-        color: "#f8fafc",
+        color: "text.primary",
         isolation: "isolate",
-        background: `
-          radial-gradient(
-            ellipse at 80% 20%,
-            rgba(124, 58, 237, 0.18),
-            transparent 42%
-          ),
-          radial-gradient(
-            ellipse at 12% 82%,
-            rgba(6, 182, 212, 0.12),
-            transparent 38%
-          ),
-          linear-gradient(
-            135deg,
-            #070a14 0%,
-            #0b1020 52%,
-            #101126 100%
-          )
-        `,
+        background: h("sectionBg"),
 
         "&::before": {
           content: '""',
@@ -148,9 +130,8 @@ export default function NewHome() {
           inset: 0,
           zIndex: -1,
           pointerEvents: "none",
-          opacity: 0.16,
-          backgroundImage:
-            "radial-gradient(rgba(148,163,184,0.8) 0.7px, transparent 0.7px)",
+          opacity: h("dotsOpacity"),
+          backgroundImage: h("dotsImage"),
           backgroundSize: "25px 25px",
           maskImage: "linear-gradient(to bottom, black 0%, transparent 90%)",
           WebkitMaskImage:
@@ -177,7 +158,7 @@ export default function NewHome() {
           width: { xs: 200, md: 340 },
           height: { xs: 200, md: 340 },
           borderRadius: "50%",
-          background: "rgba(139,92,246,0.13)",
+          background: h("glowA"),
           filter: "blur(100px)",
           pointerEvents: "none",
           zIndex: -1,
@@ -193,7 +174,7 @@ export default function NewHome() {
           width: 320,
           height: 320,
           borderRadius: "50%",
-          background: "rgba(34,211,238,0.09)",
+          background: h("glowB"),
           filter: "blur(100px)",
           pointerEvents: "none",
           zIndex: -1,
@@ -231,9 +212,10 @@ export default function NewHome() {
                 gap: 1.2,
                 px: 1.8,
                 py: 1,
-                border: "1px solid rgba(52,211,153,0.2)",
+                border: "1px solid",
+                borderColor: h("welcome.border"),
                 borderRadius: "999px",
-                background: "rgba(16,185,129,0.065)",
+                background: h("welcome.bg"),
                 backdropFilter: "blur(14px)",
                 WebkitBackdropFilter: "blur(14px)",
                 maxWidth: "100%",
@@ -246,13 +228,14 @@ export default function NewHome() {
                   height: 8,
                   flexShrink: 0,
                   borderRadius: "50%",
-                  bgcolor: "#34d399",
-                  boxShadow: "0 0 12px rgba(52,211,153,0.65)",
+                  bgcolor: h("welcome.dot"),
+                  boxShadow: h("welcome.dotGlow"),
                   "&::after": {
                     content: '""',
                     position: "absolute",
                     inset: 0,
-                    border: "1px solid rgba(52,211,153,0.6)",
+                    border: "1px solid",
+                    borderColor: h("welcome.ring"),
                     borderRadius: "50%",
                     animation: `${pulseRing} 2s ease-out infinite`,
                   },
@@ -261,7 +244,7 @@ export default function NewHome() {
 
               <Typography
                 sx={{
-                  color: "#a7f3d0",
+                  color: h("welcome.text"),
                   fontSize: { xs: 12, sm: 12.5 },
                   fontWeight: 600,
                   letterSpacing: 0.1,
@@ -270,7 +253,7 @@ export default function NewHome() {
                 سلام، به دنیای من خوش آمدید
               </Typography>
 
-              <AutoAwesomeIcon sx={{ color: "#6ee7b7", fontSize: 15 }} />
+              <AutoAwesomeIcon sx={{ color: h("welcome.icon"), fontSize: 15 }} />
             </Box>
           </Box>
 
@@ -278,7 +261,7 @@ export default function NewHome() {
             component="p"
             sx={{
               ...slideFromRight(1),
-              color: "#94a3b8",
+              color: "text.secondary",
               fontSize: { xs: 15, md: 18 },
               fontWeight: 500,
               mb: 0.5,
@@ -307,8 +290,7 @@ export default function NewHome() {
                 letterSpacing: { xs: "-1px", md: "-1.8px" },
                 mb: 2,
                 overflowWrap: "anywhere",
-                background:
-                  "linear-gradient(100deg, #ffffff 5%, #c4b5fd 52%, #67e8f9 100%)",
+                background: h("nameGradient"),
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -342,7 +324,7 @@ export default function NewHome() {
                   lg: "1.8rem",
                 },
                 fontWeight: 750,
-                color: "#67e8f9",
+                color: h("role"),
                 lineHeight: 1.8,
                 overflowWrap: "anywhere",
               }}
@@ -356,7 +338,7 @@ export default function NewHome() {
             sx={{
               ...slideFromRight(4),
               maxWidth: 540,
-              color: "#a1acc0",
+              color: h("body"),
               fontSize: { xs: 13.5, sm: 14.5, md: 15.5 },
               lineHeight: { xs: 2, md: 2.15 },
               mb: { xs: 3, md: 3.5 },
@@ -386,8 +368,10 @@ export default function NewHome() {
                     px: 2,
                     py: 1.2,
                     borderRadius: "14px",
-                    border: "1px solid rgba(148,163,184,0.14)",
-                    background: "rgba(255,255,255,0.035)",
+                    border: "1px solid",
+                    borderColor: h("stat.border"),
+                    background: h("stat.bg"),
+                    boxShadow: h("stat.shadow"),
                   }}
                 >
                   <Typography
@@ -395,7 +379,7 @@ export default function NewHome() {
                       fontSize: { xs: "1.25rem", sm: "1.45rem" },
                       fontWeight: 900,
                       lineHeight: 1.5,
-                      background: "linear-gradient(100deg, #c4b5fd, #67e8f9)",
+                      background: h("stat.gradient"),
                       backgroundClip: "text",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
@@ -403,7 +387,7 @@ export default function NewHome() {
                   >
                     {value}
                   </Typography>
-                  <Typography sx={{ color: "#94a3b8", fontSize: 12 }}>
+                  <Typography sx={{ color: "text.secondary", fontSize: 12 }}>
                     {label}
                   </Typography>
                 </Box>
@@ -430,20 +414,23 @@ export default function NewHome() {
                 minHeight: 48,
                 px: { xs: 2.2, sm: 3 },
                 borderRadius: "13px",
-                color: "#080b18",
+                color: h("primaryBtn.color"),
                 fontWeight: 800,
                 fontSize: 13.5,
                 textTransform: "none",
-                background: "linear-gradient(105deg, #a78bfa, #67e8f9)",
-                boxShadow: "0 8px 28px rgba(103,232,249,0.12)",
-                transition: "transform 0.25s ease, box-shadow 0.25s ease",
+                background: h("primaryBtn.bg"),
+                boxShadow: h("primaryBtn.shadow"),
+                transition:
+                  "transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease",
                 "&:hover": {
                   transform: "translateY(-3px)",
-                  boxShadow: "0 12px 32px rgba(103,232,249,0.23)",
-                  background: "linear-gradient(105deg, #c4b5fd, #a5f3fc)",
+                  boxShadow: h("primaryBtn.hoverShadow"),
+                  background: h("primaryBtn.hoverBg"),
+                  filter: h("primaryBtn.hoverFilter"),
                 },
                 "&:focus-visible": {
-                  outline: "2px solid #67e8f9",
+                  outline: "2px solid",
+                  outlineColor: h("primaryBtn.outline"),
                   outlineOffset: 4,
                 },
               }}
@@ -458,29 +445,30 @@ export default function NewHome() {
                 minHeight: 48,
                 px: { xs: 2.2, sm: 3 },
                 borderRadius: "13px",
-                color: "#e2e8f0",
+                color: h("ghostBtn.color"),
                 fontWeight: 700,
                 fontSize: 13.5,
                 textTransform: "none",
-                border: "1px solid rgba(148,163,184,0.2)",
-                background: "rgba(255,255,255,0.035)",
+                border: "1px solid",
+                borderColor: h("ghostBtn.border"),
+                background: h("ghostBtn.bg"),
                 backdropFilter: "blur(14px)",
                 WebkitBackdropFilter: "blur(14px)",
                 transition: "all 0.25s ease",
                 "&:hover": {
                   transform: "translateY(-3px)",
-                  borderColor: "rgba(167,139,250,0.55)",
-                  background: "rgba(139,92,246,0.1)",
+                  borderColor: h("ghostBtn.hoverBorder"),
+                  background: h("ghostBtn.hoverBg"),
                 },
                 "&:focus-visible": {
-                  outline: "2px solid #a78bfa",
+                  outline: "2px solid",
+                  outlineColor: h("ghostBtn.outline"),
                   outlineOffset: 4,
                 },
               }}
             >
               مشاهده نمونه‌کارها
             </Button>
-
           </Box>
 
           {/* Tech stack */}
@@ -493,9 +481,11 @@ export default function NewHome() {
               gap: 1.5,
             }}
           >
-            <TerminalIcon sx={{ color: "#94a3b8", fontSize: 21, mx: 0.5 }} />
+            <TerminalIcon
+              sx={{ color: "text.secondary", fontSize: 21, mx: 0.5 }}
+            />
 
-            {technologies.map(({ label, color, Icon }) => (
+            {technologies.map(({ label, Icon }) => (
               <Box
                 key={label}
                 title={label}
@@ -506,9 +496,10 @@ export default function NewHome() {
                   display: "grid",
                   placeItems: "center",
                   borderRadius: "12px",
-                  border: "1px solid rgba(148,163,184,0.15)",
-                  background: "rgba(255,255,255,0.04)",
-                  color,
+                  border: "1px solid",
+                  borderColor: h("techBox.border"),
+                  background: h("techBox.bg"),
+                  color: h(`technologies.${label}.color`),
                   cursor: "default",
                   transition: "all 0.25s ease",
 
@@ -518,9 +509,9 @@ export default function NewHome() {
                   },
 
                   "&:hover": {
-                    borderColor: color,
-                    background: `${color}12`,
-                    boxShadow: `0 0 20px ${color}18`,
+                    borderColor: h(`technologies.${label}.color`),
+                    background: h(`technologies.${label}.hoverBg`),
+                    boxShadow: h(`technologies.${label}.hoverShadow`),
                     transform: "translateY(-4px)",
                   },
 
@@ -558,8 +549,7 @@ export default function NewHome() {
               width: "85%",
               aspectRatio: "1",
               borderRadius: "50%",
-              background:
-                "radial-gradient(circle, rgba(139,92,246,0.2), rgba(34,211,238,0.08) 48%, transparent 72%)",
+              background: h("frame.glow"),
               filter: "blur(12px)",
               pointerEvents: "none",
             }}
@@ -575,11 +565,10 @@ export default function NewHome() {
               alignItems: "center",
               justifyContent: "center",
               borderRadius: { xs: "28px", md: "38px" },
-              border: "1px solid rgba(255,255,255,0.09)",
-              background:
-                "linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.012))",
-              boxShadow:
-                "0 30px 90px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.045)",
+              border: "1px solid",
+              borderColor: h("frame.border"),
+              background: h("frame.bg"),
+              boxShadow: h("frame.shadow"),
               backdropFilter: "blur(16px)",
               WebkitBackdropFilter: "blur(16px)",
               overflow: "hidden",
@@ -590,8 +579,7 @@ export default function NewHome() {
                 top: 0,
                 insetInline: "15%",
                 height: "1px",
-                background:
-                  "linear-gradient(90deg, transparent, rgba(167,139,250,0.65), rgba(103,232,249,0.65), transparent)",
+                background: h("frame.topLine"),
               },
 
               "&::after": {
@@ -599,7 +587,8 @@ export default function NewHome() {
                 position: "absolute",
                 inset: 12,
                 borderRadius: { xs: "21px", md: "30px" },
-                border: "1px solid rgba(255,255,255,0.035)",
+                border: "1px solid",
+                borderColor: h("frame.innerBorder"),
                 pointerEvents: "none",
               },
             }}
@@ -610,8 +599,7 @@ export default function NewHome() {
               sx={{
                 position: "absolute",
                 inset: 0,
-                background:
-                  "radial-gradient(ellipse at 50% 40%, rgba(124,58,237,0.09), transparent 65%)",
+                background: h("frame.lighting"),
                 pointerEvents: "none",
               }}
             />
@@ -638,7 +626,7 @@ export default function NewHome() {
                   md: "translateX(-15%) scale(1.16)",
                 },
                 transformOrigin: "center center",
-                filter: "drop-shadow(0 18px 28px rgba(0,0,0,0.15))",
+                filter: h("frame.imageShadow"),
               }}
             />
           </Box>
@@ -655,12 +643,13 @@ export default function NewHome() {
               gap: 1,
               px: 1.6,
               py: 1.15,
-              border: "1px solid rgba(167,139,250,0.23)",
+              border: "1px solid",
+              borderColor: h("badge.codeBorder"),
               borderRadius: "14px",
-              background: "rgba(15,18,37,0.82)",
+              background: h("badge.bg"),
               backdropFilter: "blur(18px)",
               WebkitBackdropFilter: "blur(18px)",
-              boxShadow: "0 12px 35px rgba(0,0,0,0.2)",
+              boxShadow: h("badge.shadow"),
               animation: `${floatBadge} 4s ease-in-out infinite`,
             }}
           >
@@ -671,8 +660,8 @@ export default function NewHome() {
                 width: 34,
                 height: 34,
                 borderRadius: "10px",
-                color: "#c4b5fd",
-                background: "rgba(139,92,246,0.13)",
+                color: h("badge.codeColor"),
+                background: h("badge.codeIconBg"),
               }}
             >
               <TerminalIcon sx={{ fontSize: 19 }} />
@@ -680,11 +669,11 @@ export default function NewHome() {
 
             <Box sx={{ direction: "ltr", textAlign: "left" }}>
               <Typography
-                sx={{ color: "#f1f5f9", fontSize: 12, fontWeight: 800 }}
+                sx={{ color: h("badge.title"), fontSize: 12, fontWeight: 800 }}
               >
                 Developer
               </Typography>
-              <Typography sx={{ color: "#94a3b8", fontSize: 11 }}>
+              <Typography sx={{ color: h("badge.sub"), fontSize: 11 }}>
                 Building ideas
               </Typography>
             </Box>
@@ -702,12 +691,13 @@ export default function NewHome() {
               gap: 1,
               px: 1.6,
               py: 1.15,
-              border: "1px solid rgba(34,211,238,0.2)",
+              border: "1px solid",
+              borderColor: h("badge.techBorder"),
               borderRadius: "14px",
-              background: "rgba(15,18,37,0.85)",
+              background: h("badge.bg"),
               backdropFilter: "blur(18px)",
               WebkitBackdropFilter: "blur(18px)",
-              boxShadow: "0 12px 35px rgba(0,0,0,0.2)",
+              boxShadow: h("badge.shadow"),
               animation: `${floatBadge} 4.5s ease-in-out 0.5s infinite`,
             }}
           >
@@ -718,8 +708,8 @@ export default function NewHome() {
                 width: 34,
                 height: 34,
                 borderRadius: "10px",
-                color: "#67e8f9",
-                background: "rgba(34,211,238,0.1)",
+                color: h("badge.techColor"),
+                background: h("badge.techIconBg"),
               }}
             >
               <CodeIcon sx={{ fontSize: 19 }} />
@@ -727,11 +717,11 @@ export default function NewHome() {
 
             <Box sx={{ direction: "ltr", textAlign: "left" }}>
               <Typography
-                sx={{ color: "#f1f5f9", fontSize: 12, fontWeight: 800 }}
+                sx={{ color: h("badge.title"), fontSize: 12, fontWeight: 800 }}
               >
                 Full Stack
               </Typography>
-              <Typography sx={{ color: "#94a3b8", fontSize: 11 }}>
+              <Typography sx={{ color: h("badge.sub"), fontSize: 11 }}>
                 Laravel & React
               </Typography>
             </Box>

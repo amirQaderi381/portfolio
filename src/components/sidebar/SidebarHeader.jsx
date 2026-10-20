@@ -1,7 +1,8 @@
-import { Avatar, Box, IconButton, Typography,Tooltip } from "@mui/material";
+import { Avatar, Box, IconButton, Typography, Tooltip } from "@mui/material";
 import CodeRoundedIcon from "@mui/icons-material/CodeRounded";
 import profile from "../../assets/guy3.jpeg";
 import { socialLinks } from "../../constants/socialLinks";
+import ThemeActionButton from "../ThemeActionButton";
 
 const SidebarHeader = () => {
   return (
@@ -22,13 +23,15 @@ const SidebarHeader = () => {
           display: { xs: "none", md: "block" },
           p: "3px",
           borderRadius: "50%",
-          background: "linear-gradient(135deg, #8be9fd, #818cf8, #c084fc)",
-          boxShadow: "0 0 25px rgba(139,233,253,0.18)",
+          background: (theme) => theme.custom.gradients.primary,
+          boxShadow: (theme) =>
+            `0 0 25px ${theme.palette.primary.main}2E`,
           mb: 1,
           transition: "all 0.3s ease",
           "&:hover": {
             transform: "scale(1.05)",
-            boxShadow: "0 0 32px rgba(139,233,253,0.35)",
+            boxShadow: (theme) =>
+              `0 0 32px ${theme.palette.primary.main}59`,
           },
         }}
       >
@@ -38,8 +41,10 @@ const SidebarHeader = () => {
           sx={{
             width: 125,
             height: 125,
-            border: "3px solid #0b1120",
-            bgcolor: "#111827",
+            border: "3px solid",
+            borderColor: "background.default",
+            bgcolor: "background.paper",
+            color: "text.primary",
           }}
         >
           AQ
@@ -50,7 +55,7 @@ const SidebarHeader = () => {
       <Typography
         variant="h6"
         sx={{
-          color: "#f8fafc",
+          color: "text.primary",
           fontWeight: 900,
           letterSpacing: "0.2px",
           mt: 0.5,
@@ -69,24 +74,31 @@ const SidebarHeader = () => {
           px: 1.5,
           py: 0.8,
           borderRadius: 3,
-          bgcolor: "rgba(139,233,253,0.07)",
-          border: "1px solid rgba(139,233,253,0.16)",
+          bgcolor: (theme) =>
+            `${theme.palette.primary.main}12`,
+          border: "1px solid",
+          borderColor: (theme) =>
+            `${theme.palette.primary.main}2E`,
           maxWidth: "100%",
         }}
       >
         <CodeRoundedIcon
-          sx={{ color: "#8be9fd", fontSize: 17, flexShrink: 0 }}
+          sx={{
+            color: "primary.main",
+            fontSize: 17,
+            flexShrink: 0,
+          }}
         />
 
         <Typography
           variant="caption"
           sx={{
-            color: "#a5b4fc",
+            color: "secondary.main",
             fontWeight: 600,
             lineHeight: 1.8,
           }}
         >
-           توسعه‌دهنده فول‌استک
+          توسعه‌دهنده فول‌استک
         </Typography>
       </Box>
 
@@ -115,19 +127,25 @@ const SidebarHeader = () => {
                 width: 44,
                 height: 44,
                 borderRadius: "13px",
-                color: social.color,
-                border: "1px solid rgba(148,163,184,0.2)",
-                background: "rgba(255,255,255,0.035)",
+                color: "text.secondary",
+                border: "1px solid",
+                borderColor: "divider",
+                bgcolor: "action.hover",
                 transition: "all 0.25s ease",
+
                 "&:hover": {
                   transform: "translateY(-4px)",
-                  color: social.hoverColor,
-                  borderColor: social.hoverColor,
-                  background: social.hoverBackground,
-                  boxShadow: `0 5px 20px ${social.hoverBackground}`,
+                  color: "primary.main",
+                  borderColor: "primary.main",
+                  bgcolor: (theme) =>
+                    `${theme.palette.primary.main}14`,
+                  boxShadow: (theme) =>
+                    `0 5px 20px ${theme.palette.primary.main}20`,
                 },
+
                 "&:focus-visible": {
-                  outline: "2px solid #67e8f9",
+                  outline: "2px solid",
+                  outlineColor: "primary.main",
                   outlineOffset: 4,
                 },
               }}
@@ -137,8 +155,12 @@ const SidebarHeader = () => {
           </Tooltip>
         ))}
       </Box>
+
+      <ThemeActionButton />
     </Box>
   );
 };
+
+
 
 export default SidebarHeader;

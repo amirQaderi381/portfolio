@@ -6,7 +6,7 @@ import { prefixer } from "stylis";
 import { ThemeProvider } from "@mui/material/styles";
 import { Grid } from "@mui/material";
 
-import { theme } from "./theme";
+import { darkTheme ,lightTheme } from "./theme";
 
 //NOTE Create RTL Cache
 const cacheRtl = createCache({
@@ -14,10 +14,12 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 
-const MainLayout = ({ children, title }) => {
+const MainLayout = ({ children, title , mode }) => {
   useEffect(() => {
     document.title = title;
   }, [title]);
+
+  const theme = mode == 'dark' ? darkTheme : lightTheme;
 
   return (
     <CacheProvider value={cacheRtl}>

@@ -17,13 +17,20 @@ import { DrawerActionButton } from "../components/drawer";
 import { Home, About } from "../pages";
 import NewHome from "../pages/NewHome";
 import Resume from "../pages/Resume";
+import Portfolio from "../pages/Portfolio";
 
 const AppContainer = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [mode , setMode] = useState(null);
 
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  useEffect(() => {
+    setMode(prefersDarkMode ? "dark" : "light");
+  } , [])
 
   useEffect(() => {
     if (isMdUp) {
@@ -40,11 +47,15 @@ const AppContainer = () => {
 
   const direction = pageNumber > previousPage.current ? "left" : "right";
 
+  const handleThemeChange = () => {
+    setMode((prevMode) => prevMode === 'light' ? 'dark' : 'light');
+  }
+
   return (
     <MainContext.Provider
-      value={{ pageNumber, handlePageNumber, drawerOpen, setDrawerOpen }}
+      value={{ pageNumber, handlePageNumber, drawerOpen, setDrawerOpen , handleThemeChange }}
     >
-      <MainLayout title="وب سایت شخصی امیر قادری">
+      <MainLayout mode={mode} title="وب سایت شخصی امیر قادری">
         <SidebarContainer>
           <Sidebar />
         </SidebarContainer>
@@ -86,18 +97,16 @@ const AppContainer = () => {
                     </Page>
 
                     <Page pageNumber={pageNumber} index={3}>
-                      <Typography sx={{ textAlign: "center" }}>
-                        نمونه کارها
-                      </Typography>
+                     <Portfolio/>
                     </Page>
 
-                    <Page pageNumber={pageNumber} index={4}>
+                    {/* <Page pageNumber={pageNumber} index={4}>
                       <Typography sx={{ textAlign: "center" }}>
                         نظرات دانشجویان
                       </Typography>
-                    </Page>
+                    </Page> */}
 
-                    <Page pageNumber={pageNumber} index={5}>
+                    <Page pageNumber={pageNumber} index={4}>
                       <Typography sx={{ textAlign: "center" }}>
                         ارتباط با من
                       </Typography>
